@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   Jumbotron,
   Container,
@@ -9,7 +9,7 @@ import {
 
 import Auth from "../utils/auth";
 import { removeBookId } from "../utils/localStorage";
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/client";
 import { GET_ME } from "../utils/queries";
 import { REMOVE_BOOK } from "../utils/mutations";
 
@@ -28,8 +28,8 @@ const SavedBooks = () => {
     }
 
     try {
-      const { data } = await removeBook({
-        variable: { bookId },
+      await removeBook({
+        variables: { bookId: bookId }
       });
 
       // upon success, remove book's id from localStorage
